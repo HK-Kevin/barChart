@@ -18,10 +18,11 @@
 
     }
 
-   .axis line{
+    .axis line {
         stroke: black;
     }
-    .tooltip{
+
+    .tooltip {
         position: absolute;
         width: 20px;
         height: auto;
@@ -32,7 +33,8 @@
         opacity: 0.8;
         border-radius: 5px;
     }
-    .axis .grid-line{
+
+    .axis .grid-line {
         stroke: black;
         shape-rendering: crispEdges;
         stroke-opacity: .2;
@@ -59,10 +61,10 @@
         .attr("height", height)
         .attr("width", width);
 
-    let tooltip=d3.select("body")
+    let tooltip = d3.select("body")
         .append("div")
-        .attr("class","tooltip")
-        .style("opacity",0.0);
+        .attr("class", "tooltip")
+        .style("opacity", 0.0);
 
     draw(data);
 
@@ -93,22 +95,22 @@
             .attr("height", function (d) {
                 return yScale(d)
             })
-            .on("mousemove" ,function (d,i) {
+            .on("mousemove", function (d, i) {
                 d3.select(this)
                     .transition()
                     .duration(100)
-                    .attr("fill","green");
+                    .attr("fill", "green");
                 tooltip.html(d)
-                    .style("left",(d3.event.pageX)+"px")
-                    .style("top",(d3.event.pageY -20)+"px")
-                    .style("opacity",.5)
+                    .style("left", (d3.event.pageX) + "px")
+                    .style("top", (d3.event.pageY - 20) + "px")
+                    .style("opacity", .5)
             })
-            .on("mouseout",function (d,i) {
+            .on("mouseout", function (d, i) {
                 d3.select(this)
                     .transition()
                     .duration(100)
-                    .attr('fill','lightseagreen');
-                tooltip.style("opacity",0.0)
+                    .attr('fill', 'lightseagreen');
+                tooltip.style("opacity", 0.0)
             });
 
 
@@ -131,7 +133,7 @@
         let xAxis = d3.svg.axis()
             .scale(xScale)
             .orient("bottom")
-            .ticks(5);
+
 
         yScale.range([yAxisWidth, 0]);
         let yAxis = d3.svg.axis()
@@ -141,28 +143,28 @@
         svg.append("g")
             .attr("class", "axis  x-axis")
             .attr("transform", "translate(" + padding.left + "," + (height - padding.bottom) + ")")
-            .call(xAxis)
+            .call(xAxis);
 
-        d3.selectAll("g.x-axis g.tick") // <-B
-            .append("line") // <-C
+        d3.selectAll("g.x-axis g.tick")
+            .append("line")
             .classed("grid-line", true)
-            .attr("x1", 0) // <-D
+            .attr("x1", 0)
             .attr("y1", 0)
             .attr("x2", 0)
-            .attr("y2", - (yAxisWidth));  // <-E
+            .attr("y2", -(xAxisWidth));
 
         svg.append("g")
             .attr("class", "axis y-axis")
             .attr("transform", "translate(" + padding.left + "," + (height - yAxisWidth - padding.top) + ")")
-            .call(yAxis)
+            .call(yAxis);
 
-        d3.selectAll("g.y-axis g.tick") // <-B
-            .append("line") // <-C
+        d3.selectAll("g.y-axis g.tick")
+            .append("line")
             .classed("grid-line", true)
-            .attr("x1", 0) // <-D
+            .attr("x1", 0)
             .attr("y1", 0)
             .attr("x2", yAxisWidth)
-            .attr("y2", 0);  // <-E
+            .attr("y2", 0);
 
     }
     function dataSort() {
